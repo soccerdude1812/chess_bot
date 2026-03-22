@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "Chess Companion",
+  "version": "1.0.0",
+  "description": "Personal chess analysis companion",
+  "permissions": ["offscreen", "storage"],
+  "host_permissions": ["https://www.chess.com/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.chess.com/game/*",
+        "https://www.chess.com/play/*",
+        "https://www.chess.com/live/*"
+      ],
+      "js": ["content.js"],
+      "css": ["overlay.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

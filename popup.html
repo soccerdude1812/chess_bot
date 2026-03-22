@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Chess Companion</h1>
+
+    <div class="toggle-row">
+      <label for="toggle-enabled">Engine</label>
+      <label class="switch">
+        <input type="checkbox" id="toggle-enabled">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="mode-row">
+      <label>Mode</label>
+      <div class="mode-buttons">
+        <button id="mode-suggest" class="mode-btn active">Suggest</button>
+        <button id="mode-auto" class="mode-btn">Auto-Play</button>
+      </div>
+    </div>
+
+    <div class="info">
+      <p id="status-text">Disabled</p>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
