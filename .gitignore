@@ -1,3 +1,5 @@
 node_modules/
 .DS_Store
 *.log
+# NNUE neural network file (38MB, downloaded via npm)
+engine/*.nnue

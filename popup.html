@@ -2,30 +2,52 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=240">
   <link rel="stylesheet" href="popup.css">
 </head>
 <body>
   <div class="container">
     <h1>Chess Companion</h1>
 
-    <div class="toggle-row">
-      <label for="toggle-enabled">Engine</label>
+    <div class="row">
+      <span class="label">Engine</span>
       <label class="switch">
         <input type="checkbox" id="toggle-enabled">
         <span class="slider"></span>
       </label>
     </div>
 
-    <div class="mode-row">
-      <label>Mode</label>
+    <div class="row">
+      <span class="label">Mode</span>
       <div class="mode-buttons">
         <button id="mode-suggest" class="mode-btn active">Suggest</button>
         <button id="mode-auto" class="mode-btn">Auto-Play</button>
       </div>
     </div>
 
+    <div class="row">
+      <span class="label">My Color</span>
+      <div class="mode-buttons">
+        <button id="color-white" class="mode-btn active">White</button>
+        <button id="color-black" class="mode-btn">Black</button>
+        <button id="color-auto" class="mode-btn">Auto</button>
+      </div>
+    </div>
+
+    <div class="elo-row">
+      <div class="elo-header">
+        <span class="label">Strength</span>
+        <span class="elo-value" id="elo-display">2700</span>
+      </div>
+      <input type="range" id="elo-slider" min="1200" max="2800" step="50" value="2700">
+      <div class="elo-labels">
+        <span>1200</span>
+        <span>2800</span>
+      </div>
+    </div>
+
     <div class="info">
-      <p id="status-text">Disabled</p>
+      <p id="status-text">Loading...</p>
     </div>
   </div>
   <script src="popup.js"></script>

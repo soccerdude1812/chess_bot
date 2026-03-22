@@ -1,21 +1,21 @@
-/* Chess Companion overlay — minimal, unobtrusive */
+/* Chess Companion — status overlay */
 #cc-overlay {
   position: fixed;
   bottom: 12px;
   right: 12px;
   z-index: 99999;
-  background: rgba(18, 18, 32, 0.88);
-  backdrop-filter: blur(6px);
-  border-radius: 8px;
-  padding: 8px 14px;
+  background: rgba(18, 18, 32, 0.92);
+  backdrop-filter: blur(8px);
+  border-radius: 10px;
+  padding: 10px 16px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-size: 13px;
   color: #ccc;
   pointer-events: none;
   user-select: none;
-  min-width: 80px;
+  min-width: 90px;
   text-align: center;
-  border: 1px solid rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
   transition: opacity 0.2s;
 }
 
@@ -29,22 +29,9 @@
 }
 
 .cc-move {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 700;
   color: #fff;
-  letter-spacing: 0.5px;
-}
-
-/* Board highlights for suggested moves */
-.cc-highlight {
-  border-radius: 2px;
-  transition: background 0.15s;
-}
-
-.cc-highlight-from {
-  background: rgba(76, 175, 80, 0.35);
-}
-
-.cc-highlight-to {
-  background: rgba(76, 175, 80, 0.5);
+  letter-spacing: 0.8px;
+  margin-top: 4px;
 }
