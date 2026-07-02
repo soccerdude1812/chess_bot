@@ -403,7 +403,7 @@
     const rect = boardEl.getBoundingClientRect();
     evalBarEl.style.top = rect.top + 'px';
     evalBarEl.style.height = rect.height + 'px';
-    evalBarEl.style.left = (rect.left - 18) + 'px';
+    evalBarEl.style.left = Math.max(2, rect.left - 18) + 'px';
   }
 
   function updateEvalBar(evalInfo) {
@@ -671,12 +671,17 @@
     observer.observe(boardEl, {
       childList: true, subtree: true, attributes: true, attributeFilter: ['class', 'style']
     });
+  }
 
-    // Keep overlays glued to the board on resize/scroll.
+  // Keep overlays glued to the board on resize/scroll. Registered once —
+  // startObserving() re-runs on every new game, so registering here would
+  // leak a listener pair per game. The position helpers no-op safely when
+  // their elements or the board aren't present.
+  (function registerRepositionOnce() {
     const reposition = () => { positionEvalBar(); positionHintOverlay(); };
     window.addEventListener('resize', reposition);
     window.addEventListener('scroll', reposition, true);
-  }
+  })();
 
   // ======================== INIT ========================
 

@@ -13,13 +13,21 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://www.chess.com/*"],
+      "matches": [
+        "https://www.chess.com/game/*",
+        "https://www.chess.com/play/*",
+        "https://www.chess.com/live/*"
+      ],
       "js": ["bridge.js"],
       "run_at": "document_start",
       "world": "MAIN"
     },
     {
-      "matches": ["https://www.chess.com/*"],
+      "matches": [
+        "https://www.chess.com/game/*",
+        "https://www.chess.com/play/*",
+        "https://www.chess.com/live/*"
+      ],
       "js": ["content.js"],
       "css": ["overlay.css"],
       "run_at": "document_idle"
