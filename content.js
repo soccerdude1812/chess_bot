@@ -18,6 +18,7 @@
   let targetElo = 2700;
   let showEvalBar = true;
   let hintStyle = 'arrow';   // 'arrow' | 'subtle'
+  let moveSpeed = 'human';   // 'instant' | 'fast' | 'human' | 'slow'
   let boardEl = null;
   let observer = null;
   let moveInProgress = false;
@@ -329,6 +330,11 @@
   // ======================== HUMAN TIMING ========================
 
   function getThinkTimeMs() {
+    // Fixed-speed modes ignore the clock and play after a set delay.
+    if (moveSpeed === 'instant') return 50 + Math.floor(Math.random() * 200);
+    if (moveSpeed === 'fast') return 400 + Math.floor(Math.random() * 1100);
+
+    // 'human' / 'slow' — clock-aware, human-like distribution.
     const clockEl = document.querySelector('.clock-time-monospace.clock-bottom, .clock-component.clock-bottom');
     let timeLeftSec = 300;
     if (clockEl) {
@@ -348,6 +354,8 @@
 
     if (Math.random() < 0.12) baseMs *= 1.4 + Math.random() * 0.8;   // occasional long think
     if (Math.random() < 0.08) baseMs *= 0.3 + Math.random() * 0.3;   // occasional snap move
+
+    if (moveSpeed === 'slow') baseMs *= 1.8 + Math.random() * 1.4;   // deliberately slower
     return Math.floor(baseMs);
   }
 
@@ -674,7 +682,7 @@
 
   function loadSettings(cb) {
     chrome.storage.local.get(
-      ['enabled', 'mode', 'myColor', 'targetElo', 'showEvalBar', 'hintStyle'],
+      ['enabled', 'mode', 'myColor', 'targetElo', 'showEvalBar', 'hintStyle', 'moveSpeed'],
       (data) => {
         if (chrome.runtime.lastError) return;
         enabled = !!data.enabled;
@@ -683,6 +691,7 @@
         targetElo = data.targetElo || 2700;
         showEvalBar = data.showEvalBar !== false;
         hintStyle = data.hintStyle || 'arrow';
+        moveSpeed = data.moveSpeed || 'human';
         detectMyColor();
         if (cb) cb();
       }
@@ -722,6 +731,7 @@
       else { createEvalBar(); positionEvalBar(); }
     }
     if (changes.hintStyle) { hintStyle = changes.hintStyle.newValue; lastFEN = ''; if (enabled) scheduleAnalysis(100); }
+    if (changes.moveSpeed) moveSpeed = changes.moveSpeed.newValue;
   });
 
   // Toggle via keyboard command from the background service worker.
