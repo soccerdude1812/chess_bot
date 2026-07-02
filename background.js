@@ -62,6 +62,21 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
 });
 
+// Keyboard shortcut → toggle the extension on the active chess.com tab.
+if (chrome.commands && chrome.commands.onCommand) {
+  chrome.commands.onCommand.addListener((command) => {
+    if (command !== 'toggle-enabled') return;
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      const tab = tabs && tabs[0];
+      if (tab && tab.id != null) {
+        chrome.tabs.sendMessage(tab.id, { target: 'content', type: 'TOGGLE_ENABLED' }, () => {
+          void chrome.runtime.lastError; // ignore if no content script on this tab
+        });
+      }
+    });
+  });
+}
+
 // Initialize default state on install and pre-warm the engine
 chrome.runtime.onInstalled.addListener(() => {
   chrome.storage.local.set({ enabled: false, mode: 'suggest' });

@@ -46,8 +46,37 @@
       </div>
     </div>
 
+    <div class="elo-row">
+      <div class="elo-header">
+        <span class="label">Move Speed</span>
+      </div>
+      <div class="mode-buttons speed-buttons">
+        <button id="speed-instant" class="mode-btn">Instant</button>
+        <button id="speed-fast" class="mode-btn">Fast</button>
+        <button id="speed-human" class="mode-btn active">Human</button>
+        <button id="speed-slow" class="mode-btn">Slow</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <span class="label">Hint Style</span>
+      <div class="mode-buttons">
+        <button id="hint-arrow" class="mode-btn active">Arrow</button>
+        <button id="hint-subtle" class="mode-btn">Subtle</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <span class="label">Eval Bar</span>
+      <label class="switch">
+        <input type="checkbox" id="toggle-evalbar" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+
     <div class="info">
       <p id="status-text">Loading...</p>
+      <p class="hint">Shortcut: Alt+Shift+C toggles on/off</p>
     </div>
   </div>
   <script src="popup.js"></script>

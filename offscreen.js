@@ -70,12 +70,18 @@ function handleEngineLine(line) {
     if (depthMatch) {
       const pvNum = pvMatch ? parseInt(pvMatch[1]) : 1;
       let score = 0;
+      let mate = null;
       if (scoreCP) score = parseInt(scoreCP[1]);
-      else if (scoreMate) score = parseInt(scoreMate[1]) > 0 ? 30000 : -30000;
+      else if (scoreMate) {
+        mate = parseInt(scoreMate[1]);
+        // Prefer shorter mates: fold distance into the score magnitude so the
+        // move selector ranks "mate in 1" above "mate in 5".
+        score = mate > 0 ? 30000 - mate : -30000 - mate;
+      }
 
       const moves = pvMoves ? pvMoves[1].trim().split(/\s+/) : [];
       if (moves.length > 0) {
-        analysisLines[pvNum] = { score, depth: parseInt(depthMatch[1]), move: moves[0], pv: moves };
+        analysisLines[pvNum] = { score, mate, depth: parseInt(depthMatch[1]), move: moves[0], pv: moves };
       }
     }
     return;
