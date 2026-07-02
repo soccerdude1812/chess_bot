@@ -35,3 +35,44 @@
   letter-spacing: 0.8px;
   margin-top: 4px;
 }
+
+.cc-meta {
+  font-size: 11px;
+  color: #9aa0b5;
+  margin-top: 3px;
+  letter-spacing: 0.3px;
+}
+
+/* Vertical evaluation bar pinned to the left edge of the board */
+#cc-evalbar {
+  position: fixed;
+  width: 14px;
+  z-index: 9998;
+  background: #403d39;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.25);
+  pointer-events: none;
+}
+
+#cc-evalbar .cc-eval-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(#fafafa, #e8e8e8);
+  transition: height 0.35s ease;
+}
+
+#cc-evalbar .cc-eval-num {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 4px;
+  text-align: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  color: #111;
+}

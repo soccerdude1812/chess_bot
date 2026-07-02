@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Chess Companion",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Personal chess analysis companion",
   "permissions": ["offscreen", "storage"],
   "host_permissions": ["https://www.chess.com/*"],
@@ -13,16 +13,26 @@
   },
   "content_scripts": [
     {
-      "matches": [
-        "https://www.chess.com/game/*",
-        "https://www.chess.com/play/*",
-        "https://www.chess.com/live/*"
-      ],
+      "matches": ["https://www.chess.com/*"],
+      "js": ["bridge.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": ["https://www.chess.com/*"],
       "js": ["content.js"],
       "css": ["overlay.css"],
       "run_at": "document_idle"
     }
   ],
+  "commands": {
+    "toggle-enabled": {
+      "suggested_key": {
+        "default": "Alt+Shift+C"
+      },
+      "description": "Toggle Chess Companion on/off"
+    }
+  },
   "action": {
     "default_popup": "popup.html",
     "default_icon": {

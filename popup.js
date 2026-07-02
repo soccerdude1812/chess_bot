@@ -8,10 +8,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const colorAuto = document.getElementById('color-auto');
     const eloSlider = document.getElementById('elo-slider');
     const eloDisplay = document.getElementById('elo-display');
+    const evalBarToggle = document.getElementById('toggle-evalbar');
+    const hintArrow = document.getElementById('hint-arrow');
+    const hintSubtle = document.getElementById('hint-subtle');
     const statusText = document.getElementById('status-text');
 
     // Load current state
-    chrome.storage.local.get(['enabled', 'mode', 'myColor', 'targetElo'], (data) => {
+    chrome.storage.local.get(['enabled', 'mode', 'myColor', 'targetElo', 'showEvalBar', 'hintStyle'], (data) => {
       if (chrome.runtime.lastError) {
         statusText.textContent = 'Storage error';
         return;
@@ -20,14 +23,30 @@ document.addEventListener('DOMContentLoaded', () => {
       const mode = data.mode || 'suggest';
       const color = data.myColor || 'auto';
       const elo = data.targetElo || 2700;
+      const hint = data.hintStyle || 'arrow';
 
       toggleEl.checked = enabled;
+      evalBarToggle.checked = data.showEvalBar !== false;
       setActiveBtn([suggestBtn, autoBtn], mode === 'auto' ? autoBtn : suggestBtn);
       setActiveBtn([colorWhite, colorBlack, colorAuto],
         color === 'w' ? colorWhite : color === 'b' ? colorBlack : colorAuto);
+      setActiveBtn([hintArrow, hintSubtle], hint === 'subtle' ? hintSubtle : hintArrow);
       eloSlider.value = elo;
       eloDisplay.textContent = elo;
       updateStatus(enabled, mode, elo);
+    });
+
+    evalBarToggle.addEventListener('change', () => {
+      chrome.storage.local.set({ showEvalBar: evalBarToggle.checked });
+    });
+
+    hintArrow.addEventListener('click', () => {
+      chrome.storage.local.set({ hintStyle: 'arrow' });
+      setActiveBtn([hintArrow, hintSubtle], hintArrow);
+    });
+    hintSubtle.addEventListener('click', () => {
+      chrome.storage.local.set({ hintStyle: 'subtle' });
+      setActiveBtn([hintArrow, hintSubtle], hintSubtle);
     });
 
     // Engine toggle
